@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QB Analyzer (Stathead Edition)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <header class="header">
+        <h1>🏈 QB Analyzer <span class="subtitle">NFLReadr Edition</span></h1>
+    </header>
+
+<div id="preloadSpinner" class="preload-spinner">
+    Loading data…
+</div>
+
+<div id="preloadContainer" class="preload-container">
+    <div class="preload-box">
+        <div id="preloadText">Loading data…</div>
+
+        <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Row 1 -->
+    <section class="controls row">
+        <div class="input-group">
+            <label for="playerName">Quarterback Name</label>
+            <input type="text" id="playerName" placeholder="Patrick Mahomes">
+        </div>
+
+        <div class="input-group">
+            <label for="seasonSelect">Season</label>
+            <select id="seasonSelect">
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+            </select>
+        </div>
+
+        <button id="loadBtn">Load🔍</button>
+        <button id="resetBtn" class="reset">Reset</button>
+
+        <div class="spinner" id="spinner1"></div>
+    </section>
+
+    <!-- Row 2 -->
+    <section class="controls row">
+        <div class="input-group">
+            <label for="playerName2">Quarterback (Compare)</label>
+            <input type="text" id="playerName2" placeholder="Josh Allen">
+        </div>
+
+        <div class="input-group">
+            <label for="seasonSelect2">Season</label>
+            <select id="seasonSelect2">
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+            </select>
+        </div>
+
+        <button id="compareBtn">Compare🆚</button>
+        <button id="swapBtn">Swap🔀</button>
+        <button id="rankBtn">Rank🏆</button>
+        <div class="spinner" id="spinner2"></div>
+    </section>
+
+    <hr>
+
+    <!-- Metric Grid -->
+    <section class="metrics">
+        <h2>Passing Profile</h2>
+
+        <div class="metric-row">
+    <span class="metric-label">Completion %</span>
+    <span class="metric-raw" id="raw-comp">--</span>
+    <div class="battery" id="battery-comp"></div>
+    <span class="metric-score" id="score-comp">--</span>
+    <button class="trend-btn" data-stat="COMP">📈</button>
+</div>
+
+<div class="metric-row">
+    <span class="metric-label">Yards/Attempt</span>
+    <span class="metric-raw" id="raw-ya">--</span>
+    <div class="battery" id="battery-ya"></div>
+    <span class="metric-score" id="score-ya">--</span>
+    <button class="trend-btn" data-stat="YPA">📈</button>
+</div>
+
+<div class="metric-row">
+    <span class="metric-label">TD%</span>
+    <span class="metric-raw" id="raw-tdpct">--</span>
+    <div class="battery" id="battery-tdpct"></div>
+    <span class="metric-score" id="score-tdpct">--</span>
+    <button class="trend-btn" data-stat="TD%">📈</button>
+</div>
+
+<div class="metric-row">
+    <span class="metric-label">INT%</span>
+    <span class="metric-raw" id="raw-intpct">--</span>
+    <div class="battery" id="battery-intpct"></div>
+    <span class="metric-score" id="score-intpct">--</span>
+    <button class="trend-btn" data-stat="INT%">📈</button>
+</div>
+
+<div class="metric-row">
+    <span class="metric-label">Sack %</span>
+    <span class="metric-raw" id="raw-sackpct">--</span>
+    <div class="battery" id="battery-sackpct"></div>
+    <span class="metric-score" id="score-sackpct">--</span>
+    <button class="trend-btn" data-stat="SACK%">📈</button>
+</div>
+
+<div class="metric-row">
+    <span class="metric-label">ANY/A</span>
+    <span class="metric-raw" id="raw-anya">--</span>
+    <div class="battery" id="battery-anya"></div>
+    <span class="metric-score" id="score-anya">--</span>
+    <button class="trend-btn" data-stat="ANYA">📈</button>
+</div>
+
+<div class="metric-row">
+    <span class="metric-label">EPA/Play</span>
+    <span class="metric-raw" id="raw-epa">--</span>
+    <div class="battery" id="battery-epa"></div>
+    <span class="metric-score" id="score-epa">--</span>
+    <button class="trend-btn" data-stat="EPA">📈</button>
+</div>
+
+<div class="metric-row">
+    <span class="metric-label">Passer Rating</span>
+    <span class="metric-raw" id="raw-rating">--</span>
+    <div class="battery" id="battery-rating"></div>
+    <span class="metric-score" id="score-rating">--</span>
+    <button class="trend-btn" data-stat="RATING">📈</button>
+</div>
+
+
+    </section>
+
+    <hr>
+
+    <!-- Overall Section -->
+    <section class="overall">
+        <h2>Overall Rating</h2>
+
+        <div class="overall-top">
+            <p>Overall Score: <span id="overallScore">--</span></p>
+            <p>Tier: <span id="overallTier">--</span></p>
+        </div>
+
+        <div class="overall-battery battery" id="battery-overall"></div>
+
+        <div class="scouting-note">
+            <label>Scouting Note</label>
+            <p id="scoutingNote">--</p>
+        </div>
+    </section>
+
+    <!-- Trend Modal -->
+    <div id="trendModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="trendClose" class="close">&times;</span>
+            <h2 id="trendTitle">Trend (Last 6 Seasons)</h2>
+            <div id="trendChartContainer">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Compare Modal -->
+    <div id="compareModal" class="modal">
+        <div class="modal-content compare-box">
+            <span id="compareClose" class="close">&times;</span>
+            <h2 id="compareTitle">🏈 QB Comparison</h2>
+
+            <table id="compareTable">
+                <thead>
+                    <tr>
+                        <th>Stat</th>
+                        <th id="compareName1">QB 1</th>
+                        <th id="compareName2">QB 2</th>
+                    </tr>
+                </thead>
+                <tbody id="compareBody">
+                    <!-- Filled dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<!-- Rank Modal -->
+<div id="rankModal" class="modal">
+  <div class="modal-content">
+    <span id="rankClose" class="close">&times;</span>
+    <h2 id="rankTitle">Top QB Rankings</h2>
+    <table class="rank-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>QB</th>
+          <th>Score</th>
+          <th>Tier</th>
+        </tr>
+      </thead>
+      <tbody id="rankBody"></tbody>
+    </table>
+  </div>
+</div>
+
+
+    <footer class="footer">
+        <small>Data source: NFLReadr(nflfastr). QB Analyzer – personal analytics tool.</small>
+    </footer>
+
+</div>
+
+<script src="js/chart.umd.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
