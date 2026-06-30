@@ -76,7 +76,7 @@ async function loadQB(playerName, season, isCompare = false) {
     spinner.style.display = "inline-block";
 
     try {
-        const url = `/run_qb?mode=single&qb=${encodeURIComponent(playerName)}&season=${season}`;
+        const url = `https://qb-analyzer-backend.onrender.com/run_qb?qb=${encodeURIComponent(playerName)}&season=${season}`;
         const response = await fetch(url);
         const data = await response.json();
 
@@ -271,15 +271,23 @@ document.getElementById("compareClose").onclick = () =>
 // ---------------------------------------------
 document.getElementById("loadBtn").addEventListener("click", async () => {
     const name = document.getElementById("playerName").value.trim();
-    const season = document.getElementById("seasonSelect").value;
+    const season = parseInt(document.getElementById("seasonSelect").value);
 
-    if (!name) return alert("Enter a QB name.");
+    if (!name) {
+        alert("Enter a QB name.");
+        return;
+    }
 
-    const data = await loadQB(name, season, false);
-    console.log("loadQB returned:", data);
+    const data = await loadQB(name, season);
+
+    if (!data || data.error) {
+        alert(data?.error || "QB not found.");
+        return;
+    }
 
     updateQBUI(data);
 });
+
 
 
 
