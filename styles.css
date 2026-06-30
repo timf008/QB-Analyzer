@@ -385,15 +385,20 @@ button.reset:hover {
 
 /* Close button */
 #trendClose {
-    float: right;
-    font-size: 1.6em;
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 22px;
     cursor: pointer;
-    color: #bbb;
+    color: #888;
 }
 
 #trendClose:hover {
-    color: #fff;
+    color: #000;
 }
+
 
 /* -----------------------------------------
    Trend Arrow Colors (Match Compare Modal)
